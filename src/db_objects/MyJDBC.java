@@ -109,7 +109,7 @@ public class MyJDBC {
 
     // true -  update to DB success
     // false - update to DB failed
-    public static boolean addTransactionToDatabase(Transactions transaction) {
+    public static boolean addTransactionToDatabase(Transaction transaction) {
         try {
         Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
@@ -181,14 +181,14 @@ public class MyJDBC {
                 );
 
                 // create Transaction
-                Transactions transferTransaction= new Transactions(
+                Transaction transferTransaction= new Transaction(
                         user.getId(),
                         "Transfer",
                         new BigDecimal(-transferAmount),
                         null
                 );
                 // transaction will belong to transferred user
-                Transactions receivedTransaction = new Transactions(
+                Transaction receivedTransaction = new Transaction(
                         transferredUser.getId(),
                         "Transfer",
                         new BigDecimal(transferAmount),
@@ -217,8 +217,8 @@ public class MyJDBC {
     }
 
     // get transactions (past transactions)
-    public static ArrayList<Transactions> getPastTransaction (User user) {
-        ArrayList<Transactions> pastTransactions = new ArrayList<>();
+    public static ArrayList<Transaction> getPastTransaction (User user) {
+        ArrayList<Transaction> pastTransactions = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
@@ -232,7 +232,7 @@ public class MyJDBC {
             // iterate through result
             while (resultSet.next()) {
                 // create transaction object
-                Transactions transaction = new Transactions(
+                Transaction transaction = new Transaction(
                         user.getId(),
                         resultSet.getString("transaction_type"),
                         resultSet.getBigDecimal("transaction_amount"),

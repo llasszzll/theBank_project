@@ -68,7 +68,7 @@ public class BankingAppGui extends BaseFrame implements ActionListener {
         add(withdrawButton);
 
         // past transaction button
-        JButton pastTransactionButton = new JButton("Previous Transactions");
+        JButton pastTransactionButton = new JButton("Past Transactions");
         pastTransactionButton.setBounds(15, 320, getWidth() - 50, 50);
         pastTransactionButton.setFont(new Font("Dialog", Font.BOLD, 22));
         pastTransactionButton.addActionListener(this);
@@ -126,7 +126,6 @@ public class BankingAppGui extends BaseFrame implements ActionListener {
                 bankAppDialog.addUserField();
             }
 
-            bankAppDialog.setVisible(true);
         }else if(buttonPressed.equalsIgnoreCase("Past Transactions")) {
             bankAppDialog.addPastTransactionComponents();
         }

@@ -6,7 +6,7 @@ package guis;
 
 
 import db_objects.MyJDBC;
-import db_objects.Transactions;
+import db_objects.Transaction;
 import db_objects.User;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class BankAppDialog extends JDialog implements ActionListener {
     private JTextField enterAmountField, enterUserField;
     private JButton actionButton;
     private JPanel pastTransactionPanel;
-    private ArrayList <Transactions> pastTransactions;
+    private ArrayList <Transaction> pastTransactions;
 
 
     public BankAppDialog(BankingAppGui bankingAppGui, User user) {
@@ -119,7 +119,7 @@ public class BankAppDialog extends JDialog implements ActionListener {
         // iterate through the list and add to GUI
         for(int i = 0; i < pastTransactions.size(); i++){
             // store current transaction
-            Transactions pastTransaction = pastTransactions.get(i);
+            Transaction pastTransaction = pastTransactions.get(i);
 
             // create a container to store an individual transaction
             JPanel pastTransactionContainer = new JPanel();
@@ -157,7 +157,7 @@ public class BankAppDialog extends JDialog implements ActionListener {
     }
 
     private void handleTransaction(String transactionType, float amountVal) {
-        Transactions transaction;
+        Transaction transaction;
 
         if(transactionType.equalsIgnoreCase("Deposit")) {
             // deposit transaction type
@@ -166,14 +166,14 @@ public class BankAppDialog extends JDialog implements ActionListener {
 
             // create Transaction
             // leave DATE null. Using NOW() in SQL to get present date
-            transaction = new Transactions(user.getId(), transactionType, new BigDecimal(amountVal), null);
+            transaction = new Transaction(user.getId(), transactionType, new BigDecimal(amountVal), null);
         } else {
             // withdraw transaction type
             // subtract from current balance
             user.setCurrentBalance(user.getCurrentBalance().subtract(new BigDecimal(amountVal)));
 
             // add negative sign for when withdrawing amount
-            transaction = new Transactions(user.getId(), transactionType, new BigDecimal(-amountVal), null);
+            transaction = new Transaction(user.getId(), transactionType, new BigDecimal(-amountVal), null);
 
         }
         // update DB
